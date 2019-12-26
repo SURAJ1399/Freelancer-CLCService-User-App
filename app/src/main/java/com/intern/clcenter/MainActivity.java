@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-getSupportActionBar().hide();
     imageView = (ImageView)findViewById(R.id.logo);
       //  imageView.startAnimation(medalAnimation);
 

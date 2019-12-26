@@ -4,47 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBack"
-    android:gravity="center_vertical"
+    android:background="#fff"
     android:orientation="vertical">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_group_1"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="60dp"
+        />
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="60dp"
         app:cardBackgroundColor="@color/colorPrimaryDark"
-        android:layout_marginRight="15dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="152dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="123dp"
-               android:layout_gravity="center"
-                app:srcCompat="@mipmap/finallogo" />
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:textSize="26dp"
-          android:gravity="center"
-          android:textStyle="bold"
-
-          android:text="City Livelihood Center"
-          android:textColor="#fff"></TextView>
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
+        android:layout_marginRight="15dp"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -52,15 +29,26 @@
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="0dp"
         android:layout_marginRight="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="23dp"
+            android:text="Sign In"
+            android:layout_marginLeft="30dp"
+            android:textSize="32dp"
+            android:textColor="#000"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="70dp"
             android:layout_marginBottom="30dp"
             android:orientation="vertical">
+
+
 
 
             <EditText
@@ -106,47 +94,15 @@
                 android:id="@+id/loginBTN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
+                android:background="@drawable/ic_rectangle_1"
                 android:textColor="#fff"
                 android:text="LOGIN" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginRight="15dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
             <Button
                 android:id="@+id/linktoregisterBTN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:text="Not a member?Register from here" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-    
-     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginRight="15dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
             <Button
                 android:id="@+id/forgotpasswordBTN"
                 android:layout_width="match_parent"
@@ -155,5 +111,7 @@
                 android:text="Forgot password?" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+
 
 </LinearLayout>
