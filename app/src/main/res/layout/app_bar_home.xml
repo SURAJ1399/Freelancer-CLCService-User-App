@@ -13,13 +13,6 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:title="CLC SERVICES"
-            android:textAlignment="center"
-            app:titleTextColor="@color/black"
-
-           android:visibility="visible"
-            android:layout_gravity="center"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -27,7 +20,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_home" />
+    <FrameLayout
+        android:id="@+id/discover_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

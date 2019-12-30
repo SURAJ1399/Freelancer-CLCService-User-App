@@ -11,13 +11,16 @@ import com.intern.clcenter.R;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AvilableJobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MyBookingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 Context context;
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_avilable_artistst,viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_my_booking,
+
+
+                viewGroup, false);
         context = viewGroup.getContext();
         return new ViewHolder(view);
     }

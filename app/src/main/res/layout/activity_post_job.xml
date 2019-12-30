@@ -19,7 +19,7 @@
 
 
         <Spinner
-            android:id="@+id/tvCategory"
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_margin="5dp"
@@ -51,6 +51,7 @@
             android:background="@android:color/transparent"
             android:gravity="top"
             android:hint="@string/title"
+            android:inputType="textCapSentences"
             android:paddingStart="15dp"
             android:singleLine="true"
             android:text="" />
@@ -104,8 +105,8 @@
             android:layout_margin="5dp"
             android:background="@android:color/transparent"
             android:gravity="top"
-            android:editable="false"
             android:hint="@string/address"
+            android:inputType="textCapSentences"
             android:paddingStart="15dp"
             android:singleLine="true"
             android:text="" />
@@ -129,10 +130,11 @@
             android:id="@+id/etDate"
             android:layout_width="match_parent"
             android:layout_height="35dp"
+            android:editable="false"
             android:layout_margin="5dp"
             android:background="@android:color/transparent"
             android:gravity="top"
-            android:editable="false"
+
             android:hint="@string/date1"
             android:paddingStart="15dp"
             android:singleLine="true"
@@ -155,13 +157,14 @@
         <EditText
             android:id="@+id/etCommet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:layout_margin="5dp"
             android:background="@android:color/transparent"
             android:gravity="top"
             android:hint="@string/enter_your_description"
             android:maxLines="3"
             android:minLines="3"
+            android:inputType="textCapSentences"
             android:paddingStart="15dp"
             android:text="" />
     </androidx.cardview.widget.CardView>
@@ -218,7 +221,7 @@
                 android:gravity="center">
 
 
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/colorPrimary"

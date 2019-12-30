@@ -2,125 +2,168 @@ package com.intern.clcenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
-import com.intern.clcenter.Adapter.AvilableJobsAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.intern.clcenter.Fragment.DiscoverFragment;
+import com.intern.clcenter.Fragment.MyBookingFragment;
+import com.intern.clcenter.Fragment.ProfileFragment;
+import com.intern.clcenter.Fragment.WalletFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import android.view.Menu;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class Home extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class Home extends AppCompatActivity{
 
     private AppBarConfiguration mAppBarConfiguration;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
+    DiscoverFragment discoverFragment;
+    ProfileFragment profileFragment;
+    WalletFragment walletFragment;
+   androidx.appcompat.widget.Toolbar toolbar;
+LinearLayout llProfileClick;
+MyBookingFragment myBookingFragment;
 
-    AvilableJobsAdapter avilableJobsAdapter;
+View navHeader;
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/ventoux.ttf").setFontAttrId(R.attr.fontPath).build());
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/algerian.ttf").setFontAttrId(R.attr.fontPath).build());
 
         setContentView(R.layout.activity_home);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //  setSupportActionBar(toolbar);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                android.R.anim.fade_out);
+        toolbar = findViewById(R.id.toolbar);
+         setSupportActionBar(toolbar);
+         toolbar.setLogo(R.drawable.ic_group_1);
+         toolbar.setCollapseIcon(R.drawable.ic_menu_black_24dp);
+         toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+         getSupportActionBar().setTitle(null);
+
+        discoverFragment=new DiscoverFragment();
+        profileFragment =new ProfileFragment();
+        walletFragment=new WalletFragment();
+        myBookingFragment=new MyBookingFragment();
+
+
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+       fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.discover_fragment,discoverFragment);
+         fragmentTransaction.commit();
+
 
 
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        recyclerView=findViewById(R.id.recyler);
+        navHeader = navigationView.getHeaderView(0);
 
-        layoutManager = new LinearLayoutManager(getApplicationContext());//   RecyclerView.LayoutManager layoutManager;
-        recyclerView.setLayoutManager(layoutManager);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
-        //passing image array and assiging adapter  ,,, adapter is object of recyler_adapter class
-        avilableJobsAdapter = new AvilableJobsAdapter();
-        recyclerView.setAdapter(avilableJobsAdapter);
-        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        //   Button button=(Button)findViewById(R.id.button);
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                super.onDrawerClosed(drawerView);
+            }
 
-        // Spinner click listener
-        spinner.setOnItemSelectedListener(Home.this);
-        // Spinner Drop down elements
-        List<String> categories = new ArrayList<String>();
-        categories.add("Category");
-        categories.add("Item 2");
-        categories.add("Item 3");
-        categories.add("Item 4");
-        categories.add("Item 5");
-        categories.add("Item 6");
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+                super.onDrawerOpened(drawerView);
+            }
+        };
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        //Setting the actionbarToggle to drawer layout
+        drawer.setDrawerListener(actionBarDrawerToggle);
 
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //calling sync state is necessary or else your hamburger icon wont show up
+        actionBarDrawerToggle.syncState();
 
-        // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
+        llProfileClick = navHeader.findViewById(R.id.llProfileClick);
 
+
+        llProfileClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                        android.R.anim.fade_out);
+                fragmentTransaction.replace(R.id.discover_fragment,profileFragment);
+                fragmentTransaction.commitAllowingStateLoss();
+                drawer.closeDrawers();
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                        android.R.anim.fade_out);
 
                 switch (menuItem.getItemId()) {
-                    case R.id.nav_jobs:
-                        Intent intent=new Intent(Home.this,PostJob.class);
-                        startActivity(intent);
+                    case R.id.nav_home:
+
+                        Intent  intent1=new Intent(Home.this,Home.class);
+                        startActivity(intent1);
                         break;
+
+                    case R.id.nav_jobs:
+
+                      Intent intent=new Intent(Home.this,PostJob.class);
+                      startActivity(intent);
+
+                        break;
+                    case  R.id.nav_wallet:
+                        fragmentTransaction.replace(R.id.discover_fragment, walletFragment);
+
+                        break;
+
+                    case R.id.nav_booking:
+                    fragmentTransaction.replace(R.id.discover_fragment,myBookingFragment);
+                    break;
+                    case R.id.nav_profilesetting:
+
+                        Intent  intent2=new Intent(Home.this,ProfileActivity.class);
+                        startActivity(intent2);
+                        break;
+                    case R.id.nav_signout:
+                        FirebaseAuth firebaseAuth;
+                        firebaseAuth=FirebaseAuth.getInstance();
+                        firebaseAuth.signOut();
+
+                        Intent  intent3=new Intent(Home.this,RegisterActivity.class);
+                        startActivity(intent3);
+                        finish();
+                        break;
+
+
+
+
+
 
                     default:
 
                         break;
 
-                }
+                } fragmentTransaction.commitAllowingStateLoss();
 
                 drawer.closeDrawers();
-
 
 
                 //   loadHomeFragment();
@@ -130,23 +173,10 @@ public class Home extends AppCompatActivity implements AdapterView.OnItemSelecte
         });
 
 
-
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
+    protected void onStart() {
+        super.onStart();
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-}
+    }}

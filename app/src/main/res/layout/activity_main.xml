@@ -16,6 +16,6 @@
         android:layout_marginLeft="120dp"
 
 
-        android:src="@drawable/ic_group_1"/>
+        android:src="@drawable/ic_group_2"/>
 
 </LinearLayout>

@@ -2,12 +2,14 @@ package com.intern.clcenter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import dmax.dialog.SpotsDialog;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -55,10 +57,10 @@ public class LoginActivity extends AppCompatActivity {
         lLinktoSignupBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, Home
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity
                         .class);
                 startActivity(intent);
-                finish();
+
             }
         });
 
@@ -70,8 +72,11 @@ public class LoginActivity extends AppCompatActivity {
                 {
                     if (validateEmail(userEmail)== true)
                     {
-                        progress.setMessage("Verifying Email address, Please wait!");
-                        progress.show();
+                       // progress.setMessage("Verifying Email address, Please wait!");
+                        //progress.show();
+                        final SpotsDialog waitingdilog=new SpotsDialog(LoginActivity.this,R.style.Custom);
+                      //  waitingdilog.setMessage("Signing In");
+                        waitingdilog.show();
 
                         auth.sendPasswordResetEmail(userEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -79,11 +84,13 @@ public class LoginActivity extends AppCompatActivity {
                                 if (task.isSuccessful())
                                 {
                                     progress.dismiss();
+                                    waitingdilog.dismiss();
                                     Toast.makeText(LoginActivity.this,"An email has been sent to you with password reset details. Please check your Emails.",Toast.LENGTH_SHORT).show();
                                 }
                                 else
                                 {
                                     progress.dismiss();
+                                    waitingdilog.dismiss();
                                     Toast.makeText(LoginActivity.this,"Cannot find an account with provided email!",Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -112,21 +119,21 @@ public class LoginActivity extends AppCompatActivity {
                 {
                     if (validateEmail(userEmail) == true)
                     {
-                        progress.setMessage("Signing In, Please Wait!");
-                        progress.show();
+                        //progress.show();
+                        final SpotsDialog waitingdilog=new SpotsDialog(LoginActivity.this,R.style.Custom);
+                      //  waitingdilog.setMessage("");
+                        waitingdilog.show();
+
 
                         auth.signInWithEmailAndPassword(userEmail,userPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful())
                                 {
-                                    SharedPreferences.Editor editor = pref.edit();
-                                    editor.putBoolean(Constants.IS_LOGGED_IN,true);
-                                    editor.putString(Constants.EMAIL,auth.getCurrentUser().getEmail());
-                                    editor.putString(Constants.UNIQUE_ID,auth.getCurrentUser().getUid());
-                                    editor.apply();
+                                    //progress.show();
 
-                                    progress.dismiss();
+
+                                    waitingdilog.dismiss();
 
                                     Intent intent = new Intent(LoginActivity.this,Home.class);
                                     startActivity(intent);
@@ -134,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else
                                 {
-                                    progress.dismiss();
+                                    waitingdilog.dismiss();
                                     Toast.makeText(LoginActivity.this,"Email or password you entered is incorrect!",Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -167,5 +174,17 @@ public class LoginActivity extends AppCompatActivity {
         matcher = pattern.matcher(email);
         return matcher.matches();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser()!=null)
+        {
+            Intent intent=new Intent(LoginActivity.this,Home.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

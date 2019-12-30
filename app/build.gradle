@@ -30,6 +30,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.google.firebase:firebase-firestore:17.1.2'
+    implementation 'com.google.firebase:firebase-storage:16.0.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -37,5 +39,13 @@ dependencies {
 
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'de.hdodenhof:circleimageview:2.0.0'
+    implementation 'com.cocosw:bottomsheet:1.4.0'
+    implementation 'com.github.d-max:spots-dialog:0.7@aar'
+    implementation 'com.github.florent37:singledateandtimepicker:1.2.2'
+    implementation("com.google.android.libraries.places:places-compat:1.0.0")
+    implementation("com.schibstedspain.android:leku:5.0.0") {
+        exclude group: 'com.google.android.gms'
+        exclude module: "play-services-places"
+    }
 
 }

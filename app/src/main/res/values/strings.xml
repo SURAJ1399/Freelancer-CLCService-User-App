@@ -270,7 +270,7 @@
     <string name="terms_of_use">Terms of Use</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="and">and</string>
-    <string name="agreed">Yes, I have read and agreed to </string>
+    <string name="agreed">Yes, I agreed to </string>
     <string name="invoice_date">Invoice Date</string>
     <string name="booking_date">Booking Date</string>
     <string name="due_date">Due Date</string>

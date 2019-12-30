@@ -5,4 +5,10 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+    <style name="Custom" parent="android:Theme.DeviceDefault.Dialog">
+    <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+    <item name="DialogTitleText">Loading Accounts…</item>
+    <item name="DialogSpotColor">@android:color/holo_orange_light</item>
+    <item name="DialogSpotCount">3</item>
+    </style>
 </resources>

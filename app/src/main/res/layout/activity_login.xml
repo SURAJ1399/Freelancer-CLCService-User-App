@@ -9,44 +9,40 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_group_1"
+        android:src="@drawable/ic_group_2"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="60dp"
         />
 
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="60dp"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        android:layout_marginRight="15dp"/>
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
+        android:elevation="70dp"
         android:layout_marginBottom="0dp"
         android:layout_marginRight="15dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="23dp"
-            android:text="Sign In"
-            android:layout_marginLeft="30dp"
-            android:textSize="32dp"
-            android:textColor="#000"
-            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="23dp"
+                android:text="Sign In"
+                android:layout_marginLeft="0dp"
+                android:textSize="32dp"
+                android:textColor="#000"
+                android:textStyle="bold"/>
+
 
 
 
@@ -56,62 +52,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:drawableStart="@drawable/ic_email_black_24dp"
                 android:padding="10dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginBottom="10dp"
                 android:textSize="15dp"
+android:drawablePadding="15dp"
                 android:background="@drawable/input_outline"
                 android:inputType="textEmailAddress"
-                android:hint="Email"/>
+                android:hint="Email ID"/>
 
             <EditText
                 android:id="@+id/passwordLoginET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+                android:drawablePadding="15dp"
                 android:padding="10dp"
                 android:textSize="15dp"
                 android:background="@drawable/input_outline"
                 android:inputType="textPassword"
                 android:hint="Password"/>
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginRight="15dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
             <Button
                 android:id="@+id/loginBTN"
                 android:layout_width="match_parent"
+                android:layout_marginTop="32dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_rectangle_1"
                 android:textColor="#fff"
                 android:text="LOGIN" />
+
             <Button
                 android:id="@+id/linktoregisterBTN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Not a member?Register from here" />
+                android:layout_width="230dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="17dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_notamemeber"
+                />
             <Button
                 android:id="@+id/forgotpasswordBTN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Forgot password?" />
+                android:layout_width="130dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="17dp"
+                android:layout_height="14dp"
+                android:background="@drawable/ic_forgotpass"
+                />
+
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
 
 </LinearLayout>

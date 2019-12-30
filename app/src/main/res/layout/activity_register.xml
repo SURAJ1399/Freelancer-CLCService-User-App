@@ -11,7 +11,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_group_1"
+        android:src="@drawable/ic_group_2"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="60dp"
        />
@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
             android:layout_marginBottom="23dp"
                 android:text="Sign Up"
+                android:id="@+id/signupbtn"
                 android:textSize="32dp"
                 android:textColor="#000"
                 android:textStyle="bold"/>
@@ -58,6 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:drawablePadding="15dp"
                 android:padding="10dp"
                 android:layout_marginBottom="10dp"
                 android:textSize="15dp"
@@ -70,6 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:drawableStart="@drawable/ic_email_black_24dp"
+                android:drawablePadding="15dp"
                 android:padding="10dp"
                 android:textSize="15dp"
                 android:layout_marginBottom="10dp"
@@ -87,6 +92,8 @@
                 android:padding="10dp"
                 android:textSize="15dp"
                 android:layout_marginBottom="10dp"
+                android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+                android:drawablePadding="15dp"
                 android:background="@drawable/input_outline"
                 android:inputType="textPassword"
                 android:hint="Password"/>
@@ -97,10 +104,69 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:padding="10dp"
+                android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                 android:textSize="15dp"
                 android:background="@drawable/input_outline"
                 android:inputType="textPassword"
                 android:hint="Confirm Password"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/termsCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-5dp"
+                    android:text="@string/agreed"
+                    android:checked="false"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvTerms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:padding="3dp"
+                    android:text="@string/terms_of_use"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="@string/and"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvPrivacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="@string/privacy_policy"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/registerBTN"
@@ -111,18 +177,21 @@
                 android:textColor="#000"
                 android:text="Sign Up" />
 
+
             <TextView
                 android:id="@+id/linktologinBTN"
-                android:layout_width="250dp"
-                android:layout_height="18dp"
-                android:layout_marginTop="19dp"
+                android:layout_width="230dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="20dp"
+                android:gravity="bottom"
                 android:layout_gravity="center"
                 android:background="@drawable/ic_account"/>
 
+
+
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
 
 
 

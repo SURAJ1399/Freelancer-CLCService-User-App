@@ -11,15 +11,12 @@
                 android:id="@+id/nav_home"
                 android:icon="@drawable/ic_homenavi"
                 android:title="@string/home" />
+            <item
+                android:id="@+id/nav_notification"
+                android:icon="@drawable/ic_notification"
+                android:title="@string/notification" />
 
-            <item
-                android:id="@+id/nav_chat"
-                android:icon="@drawable/ic_chat"
-                android:title="@string/chats" />
-            <item
-                android:id="@+id/nav_history"
-                android:icon="@drawable/ic_history"
-                android:title="@string/invoice" />
+
         </menu>
     </item>
     <item
@@ -34,11 +31,7 @@
                 android:id="@+id/nav_jobs"
                 android:icon="@drawable/ic_jobs"
                 android:title="@string/jobs" />
-            <item
-                android:id="@+id/nav_appointment"
-                android:icon="@drawable/ic_appointment"
-                android:title="@string/future_bookings"
-                android:visible="false" />
+
         </menu>
     </item>
     <item
@@ -61,19 +54,15 @@
         android:title="Other">
         <menu>
 
-            <item
-                android:id="@+id/nav_notification"
-                android:icon="@drawable/ic_notification"
-                android:title="@string/notification" />
 
-            <item
-                android:id="@+id/nav_discount"
-                android:icon="@drawable/ic_discount"
-                android:title="@string/get_discount" />
             <item
                 android:id="@+id/nav_tickets"
                 android:icon="@drawable/ic_ticket"
                 android:title="@string/support" />
+            <item
+                android:id="@+id/nav_signout"
+                android:icon="@drawable/ic_power_settings_new_black_24dp"
+                android:title="Logout" />
         </menu>
     </item>
 
