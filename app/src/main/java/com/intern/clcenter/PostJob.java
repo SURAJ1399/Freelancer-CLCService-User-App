@@ -35,8 +35,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -65,6 +70,8 @@ public class PostJob extends AppCompatActivity implements AdapterView.OnItemSele
     String category;
     SimpleDateFormat sdf1, timeZone;
     String    downloadurl;
+    String name;
+    FirebaseAuth firebaseAuth;
     int PICK_FROM_CAMERA = 1, PICK_FROM_GALLERY = 2;
     int CROP_CAMERA_IMAGE = 3, CROP_GALLERY_IMAGE = 4;
 
@@ -90,14 +97,16 @@ public class PostJob extends AppCompatActivity implements AdapterView.OnItemSele
         llPost = findViewById(R.id.llPost);
         spinner=findViewById(R.id.spinner);
         mAuth = FirebaseAuth.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
         // current_user = mAuth.getCurrentUser().getUid();
         storagerefrence = FirebaseStorage.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
-etDate.setOnClickListener(new View.OnClickListener() {
+     etDate.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
 
-
+llPost.setVisibility(View.INVISIBLE
+);llPost.setEnabled(false);
         new SingleDateAndTimePickerDialog.Builder(PostJob.this)
                 .bottomSheet()
                 .curved()
@@ -123,59 +132,89 @@ etDate.setOnClickListener(new View.OnClickListener() {
                             }
                 });
 
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+name=task.getResult().getString("fullname");
+                }
+            });
 
 
+        }
 
 
-        final ProgressDialog progressDialog=new ProgressDialog(PostJob.this);
+            final ProgressDialog progressDialog=new ProgressDialog(PostJob.this);
         progressDialog.setMessage("Uploading Your Request...");
         llPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressDialog.show();
                 final String randomName = UUID.randomUUID().toString();
-                final UploadTask filepath = storagerefrence.child("Post Image").child(randomName + ".jpg").putFile(picUri);
+                final UploadTask filepath = storagerefrence.child("PostedImage").child(randomName + ".jpg").putFile(picUri);
                 filepath.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+              final Map<String,Object> postmap=new HashMap<>();
 
-                        if (task.isSuccessful()) {
+                                    if (task.isSuccessful()) {
 
-                            task.getResult().getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
+                                        task.getResult().getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
 
-                                 downloadurl = uri.toString();
-                                 String jobcode=genratekjobcode().toUpperCase();
-                                    Map<String,Object> postmap=new HashMap<>();
-                                    postmap.put("category",category);
-                                    postmap.put("title",etTitle.getText().toString());
-                                    postmap.put("budget",etPrice.getText().toString());
-                                    postmap.put("address",etAddress.getText().toString());
-                                    postmap.put("date",etDate.getText().toString());
-                                    postmap.put("descentryfee",etCommet.getText().toString());
-                                    postmap.put("imageuri",downloadurl);
-                                    postmap.put("username",mAuth.getCurrentUser().getUid());
-                                    postmap.put("jobcode",jobcode);
-                                    postmap.put("status","Pending");
+                                                downloadurl = uri.toString();
+                                                String jobcode=genratekjobcode().toUpperCase();
+                                                postmap.put("category",category) ;
+                                            postmap.put("title",etTitle.getText().toString());
+                                        postmap.put("budget",etPrice.getText().toString());
+                                        postmap.put("address",etAddress.getText().toString());
+                                        postmap.put("date",etDate.getText().toString());
+                                        postmap.put("descentryfee",etCommet.getText().toString());
+                                        postmap.put("imageuri",downloadurl);
+                                        postmap.put("username",name);
+                                        postmap.put("jobcode",jobcode);
+                                        postmap.put("status","Pending");
 
                                     final SpotsDialog waitingdilog=new SpotsDialog(PostJob.this);
                                     waitingdilog.show();
                                     progressDialog.dismiss();
-                                    firebaseFirestore.collection("Users/"+mAuth.getCurrentUser().getUid()+"/PostedJobs").add(postmap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                            firebaseFirestore.collection("Users/"+mAuth.getCurrentUser().getUid()+"/PostedJobs").add(postmap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentReference> task) {
 
                                             if(task.isSuccessful())
                                             {
+                                                firebaseFirestore.collection("PostedJobs").add(postmap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentReference> task) {
 
-                                                waitingdilog.dismiss();
+                                                        if(task.isSuccessful())
+                                                        {
 
-                                                Toast.makeText(PostJob.this, "Job Posted", Toast.LENGTH_SHORT).show();
-                                                Intent intent=new Intent(PostJob.this,Home.class);
-                                                //intent.putExtra("uri",downloadurl);
-                                                startActivity(intent);
-                                                finish();
+                                                            waitingdilog.dismiss();
+
+                                                            Toast.makeText(PostJob.this, "Job Posted", Toast.LENGTH_SHORT).show();
+                                                            Intent intent=new Intent(PostJob.this,Home.class);
+                                                            //intent.putExtra("uri",downloadurl);
+                                                            startActivity(intent);
+                                                            finish();
+
+
+                                                        }
+                                                        else
+                                                        { String error=task.getException().getMessage();
+                                                            Toast.makeText(PostJob.this, " Error:"+error, Toast.LENGTH_LONG).show();
+
+                                                        }
+
+                                                    }
+                                                });
+
+
+
+
 
 
                                             }
@@ -217,20 +256,40 @@ etDate.setOnClickListener(new View.OnClickListener() {
         // Spinner click listener
         spinner.setOnItemSelectedListener(PostJob.this);
         // Spinner Drop down elements
-        List<String> categories = new ArrayList<String>();
+        final List<String> categories = new ArrayList<String>();
         categories.add("Category");
-        categories.add("Item 2");
-        categories.add("Item 3");
-        categories.add("Item 4");
-        categories.add("Item 5");
-        categories.add("Item 6");
+     //   categories.add("Item 2");
+      //  categories.add("Item 3");
+      //  categories.add("Item 4");
+      //  categories.add("Item 5");
+      //  categories.add("Item 6");
+        firebaseFirestore.collection("Category").addSnapshotListener(PostJob.this,new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
+                        if (doc.getType() == DocumentChange.Type.ADDED) {
+
+                            String category = doc.getDocument().getString("category");
+categories.add(category);
+
+                        }
+                    }
+                }
+
+
+            }
+        });
+
+
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, categories);
 
-        // Drop down layout style - list view with radio button
+        // Drop down layout style - list view with radio button.
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // attaching data adapter to spinner
+        //Attaching data adapter to spinner.
+
         spinner.setAdapter(dataAdapter);
 
 
@@ -255,10 +314,8 @@ etDate.setOnClickListener(new View.OnClickListener() {
                         intent.setType("image/*");
                         intent.setAction(Intent.ACTION_GET_CONTENT);
                         startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
-
-
-
                         break;
+
                     case R.id.cancel_cards:
                         builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
@@ -271,12 +328,15 @@ etDate.setOnClickListener(new View.OnClickListener() {
             }
         });
 
-    } @Override
+    }
+    @Override
     protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             picUri = data.getData();
 
+            llPost.setVisibility(View.VISIBLE
+            );llPost.setEnabled(true);
             Toast.makeText(this, "Image Selected", Toast.LENGTH_SHORT).show();
         }
     }
@@ -291,12 +351,16 @@ etDate.setOnClickListener(new View.OnClickListener() {
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-public  String genratekjobcode(){
-    String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    public  String genratekjobcode()
+
+    {
+
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             + "0123456789"
             + "abcdefghijklmnopqrstuvxyz";
 
-    // create StringBuffer size of AlphaNumericString
+    //Create StringBuffer size of AlphaNumericString
     StringBuilder sb = new StringBuilder(5);
 
     for (int i = 0; i < 5; i++) {

@@ -36,6 +36,7 @@ LinearLayout llProfileClick;
 MyBookingFragment myBookingFragment;
 
 View navHeader;
+static  String xyz;
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -49,8 +50,9 @@ View navHeader;
 
         setContentView(R.layout.activity_home);
         toolbar = findViewById(R.id.toolbar);
-         setSupportActionBar(toolbar);
-         toolbar.setLogo(R.drawable.ic_group_1);
+        setSupportActionBar(toolbar);
+        toolbar.setLogo(R.drawable.ic_group_1);
+
          toolbar.setCollapseIcon(R.drawable.ic_menu_black_24dp);
          toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
          getSupportActionBar().setTitle(null);
@@ -117,31 +119,33 @@ View navHeader;
                         android.R.anim.fade_out);
 
                 switch (menuItem.getItemId()) {
-                    case R.id.nav_home:
 
+
+                    case R.id.nav_home:
                         Intent  intent1=new Intent(Home.this,Home.class);
                         startActivity(intent1);
                         break;
 
+
                     case R.id.nav_jobs:
-
-                      Intent intent=new Intent(Home.this,PostJob.class);
-                      startActivity(intent);
-
+                        Intent intent=new Intent(Home.this,PostJob.class);
+                        startActivity(intent);
                         break;
-                    case  R.id.nav_wallet:
-                        fragmentTransaction.replace(R.id.discover_fragment, walletFragment);
 
+                        case R.id.nav_wallet:
+                        fragmentTransaction.replace(R.id.discover_fragment, walletFragment);
                         break;
 
                     case R.id.nav_booking:
                     fragmentTransaction.replace(R.id.discover_fragment,myBookingFragment);
                     break;
+
                     case R.id.nav_profilesetting:
 
                         Intent  intent2=new Intent(Home.this,ProfileActivity.class);
                         startActivity(intent2);
                         break;
+
                     case R.id.nav_signout:
                         FirebaseAuth firebaseAuth;
                         firebaseAuth=FirebaseAuth.getInstance();
@@ -151,10 +155,6 @@ View navHeader;
                         startActivity(intent3);
                         finish();
                         break;
-
-
-
-
 
 
                     default:

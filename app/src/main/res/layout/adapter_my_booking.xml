@@ -213,7 +213,13 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="32dp"
                     android:gravity="center">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_job_briefcase" />
+
 
                     <TextView
                         android:id="@+id/tvProfileComplete"
@@ -221,7 +227,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:singleLine="true"
-                        android:text=""
+                        android:text="Artist Mobile No"
                         android:textSize="12sp" />
                 </LinearLayout>
 

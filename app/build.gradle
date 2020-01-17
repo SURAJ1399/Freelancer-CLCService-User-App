@@ -46,6 +46,7 @@ dependencies {
     implementation("com.schibstedspain.android:leku:5.0.0") {
         exclude group: 'com.google.android.gms'
         exclude module: "play-services-places"
+        implementation 'com.kyleduo.switchbutton:library:1.4.5'
     }
 
 }

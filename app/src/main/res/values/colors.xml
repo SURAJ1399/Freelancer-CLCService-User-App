@@ -12,6 +12,8 @@
     <color name="divider">#333333</color>
     <color name="light_gray">#DFDFDF</color>
     <color name="search_back">#DFDFDF</color>
+    <color name="green2">#00FC36</color>
+    <color name="green1">#65EC82</color>
     <color name="productback">#f9f8f8</color>
     <color name="status_bar_color">#FFFFFF</color>
     <color name="dark_bg">#2D324F</color>
